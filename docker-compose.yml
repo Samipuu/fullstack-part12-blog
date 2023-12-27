@@ -1,0 +1,20 @@
+services:
+  blog-back:
+    image: blog-back
+    environment:
+      MONGODB_URI: ${MONGODB_URI}
+      PORT: ${PORT}
+      SECRET: ${SECRET}
+    volumes:
+      - ./back/:/usr/src/app/
+    ports:
+      - 3003:3003
+  app:
+    image: blog-front
+    volumes:
+      - ./front/bloglist-frontend/:/usr/src/app/ # The path can be relative, so ./ is enough to say "the same location as the docker-compose.yml"
+    container_name: blog-front # This will name the container hello-front-dev
+    ports: 
+      - 5173:80
+
+

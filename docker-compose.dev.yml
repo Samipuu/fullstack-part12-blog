@@ -1,0 +1,23 @@
+services:
+  blog-back-dev:
+    image: blog-back-dev
+    environment:
+      TEST_MONGODB_URI: ${TEST_MONGODB_URI}
+      PORT: ${PORT}
+      SECRET: ${SECRET}
+    volumes:
+      - ./back/:/usr/src/app/
+    ports:
+      - 3003:3003
+  app:
+    image: blog-front-dev
+    build:
+      context: . # The context will pick this directory as the "build context"
+      dockerfile: ./front/bloglist-frontend/dev.Dockerfile # This will simply tell which dockerfile to read
+    volumes:
+      - ./front/bloglist-frontend/:/usr/src/app/ # The path can be relative, so ./ is enough to say "the same location as the docker-compose.yml"
+    container_name: blog-front-dev # This will name the container hello-front-dev
+    ports: 
+      - 5173:5173
+
+
